@@ -1,3 +1,4 @@
+// Function to update personal info box
 function webpageUI(data) {
   const profileData = data.find((item) => item.SK === 'PROFILE');
   const dataUI      = data.find((item) => item.SK === 'DATA_UI');
@@ -30,24 +31,21 @@ function webpageUI(data) {
     safeUpdate('goal-5-text-input', goalData.goal_5);                  // goal_5 input
   }       
 
-  if (dataUI) {
+  const currentWeekObj = JSON.parse(JSON.parse(`"${dataUI.current_week_numbers}"`));
+  const lastWeekObj    = JSON.parse(JSON.parse(`"${dataUI.last_weeks_numbers}"`));
+
+
     safeUpdate('high-score-percent',   dataUI.high_score['score_%']);     // high_score['score_%']
     safeUpdate('high-score-date',      dataUI.high_score['score_date']);  // high_score['score_date']
     safeUpdate('last-5-average_per',   dataUI['last_5_average_%']);       // last_5_average_%
+    
     safeUpdate('seven-day-lost',       dataUI['7_day_lost']);             // 7_day_lost
-    safeUpdate('total-lost',           dataUI.total_lost);                // total_lost
-    safeUpdate('current-weight',       dataUI.current_week);              // current_week
-    safeUpdate('last-week-weight',     dataUI.last_weeks_weight);         // last_weeks_weight
+    safeUpdate('total_lost_profile',   dataUI.total_lost);                // total_lost
+    safeUpdate('total_lost',           dataUI.total_lost);                // total_lost
+    safeUpdate('current-week',         dataUI.current_week);              // current_week
+    safeUpdate('last-weeks-weight',    dataUI.last_weeks_weight);         // last_weeks_weight
 
-    // Parse the week numbers
-    const currentWeekObj = typeof dataUI.current_week_numbers === 'string' 
-      ? JSON.parse(dataUI.current_week_numbers) 
-      : dataUI.current_week_numbers;
-    const lastWeekObj = typeof dataUI.last_weeks_numbers === 'string'
-      ? JSON.parse(dataUI.last_weeks_numbers)
-      : dataUI.last_weeks_numbers;
-
-    // Update goal scores
+    // Example: update one score just to check if parsing works
     safeUpdate('goal1-score-this-week', currentWeekObj.scores.goal_1);
     safeUpdate('goal2-score-this-week', currentWeekObj.scores.goal_2);
     safeUpdate('goal3-score-this-week', currentWeekObj.scores.goal_3);
@@ -62,26 +60,25 @@ function webpageUI(data) {
     safeUpdate('goal5-score-last-week', lastWeekObj.scores.goal_5);
     safeUpdate('total-score-last-week', lastWeekObj.scores.total_score);
   }
-}
+
+
 
 // Fetch and update UI on page load
 function updateAllData() {
   fetch('mock/progress-data.json')
     .then((res) => res.json())
     .then((data) => {
-      let parsed;
-      // Try to handle all data shapes
-      if (Array.isArray(data)) {
-        parsed = data;
-      } else if (typeof data.body === 'string') {
-        parsed = JSON.parse(data.body);
-      } else if (Array.isArray(data.body)) {
-        parsed = data.body;
-      } else {
-        throw new Error('Unrecognized JSON shape!');
-      }
+      console.log('📦 Mock JSON loaded:', data);
+      document.getElementById('current-date').textContent = new Date().toLocaleDateString();
 
-      const validItems = [
+      const parsed = JSON.parse(data.body);
+      console.log('📦 Parsed body array:', parsed);
+
+      parsed.forEach((item, index) => {
+        console.log(`Item ${index} SK:`, item.SK);
+      });
+
+      const validItems = [ // remove any undefined/null
         parsed.find((item) => item.SK === 'PROFILE'),
         parsed.find((item) => item.SK === 'GOALS'),
         parsed.find((item) => item.SK === 'DATA_UI')
@@ -94,4 +91,8 @@ function updateAllData() {
     });
 }
 
+// Initialize data when page loads
 document.addEventListener('DOMContentLoaded', updateAllData);
+
+
+

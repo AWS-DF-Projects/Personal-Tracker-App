@@ -13,7 +13,7 @@
   <body>
     <div class="tracker-container">
       <div class="header-stats">
-        <h2>My Weight Loss Tracker</h2>
+        <h2>My Personal Tracker</h2>
         <div style="display: flex; align-items: center; margin-bottom: 10px">
           <p style="margin-right: 5px">Enter Weight:</p>
           <input
@@ -26,9 +26,9 @@
               width: 100px;
             "
           />
-          <p style="margin-left: 20px">Date: Today's Date</p>
+          <p style="margin-left: 20px">Today’s Date: <span id="current-date"></span></p>
         </div>
-        <p>
+        <p style="margin-bottom: 10px">
           Last 5 Overall: <span id="last-5-average_per">00</span>% | Best Week:
           <span id="high-score-percent">00</span>% – date set
           <span id="high-score-date">01-01-2020</span>
@@ -101,7 +101,7 @@
               </div>
               <div style="display: flex; flex-direction: column">
                 <p style="margin: 0"><strong>Total Lost:</strong></p>
-                <p style="margin: 0"><span id="total-lost">1.57</span> st</p>
+                <p style="margin: 0"><span id="total_lost_profile">1.57</span> st</p>
               </div>
             </div>
           </div>
@@ -150,6 +150,7 @@
                 font-size: 10px;
                 font-weight: bold;
                 margin: 0 0 5px;
+                font-size: 0.8rem;
               "
             >
               Last Week
@@ -165,27 +166,27 @@
             >
               <!-- Row 1: Overall Score and 7 Day Score -->
               <div style="flex: 1; text-align: center">
-                <strong>G1</strong><br /><span id="goal1-score-last-week"
+                <strong>Goal1</strong><br /><span id="goal1-score-last-week"
                   >0</span
                 >%
               </div>
               <div style="flex: 1; text-align: center">
-                <strong>G2</strong><br /><span id="goal2-score-last-week"
+                <strong>Goal2</strong><br /><span id="goal2-score-last-week"
                   >0</span
                 >%
               </div>
               <div style="flex: 1; text-align: center">
-                <strong>G3</strong><br /><span id="goal3-score-last-week"
+                <strong>Goal3</strong><br /><span id="goal3-score-last-week"
                   >0</span
                 >%
               </div>
               <div style="flex: 1; text-align: center">
-                <strong>G4</strong><br /><span id="goal4-score-last-week"
+                <strong>Goal4</strong><br /><span id="goal4-score-last-week"
                   >0</span
                 >%
               </div>
               <div style="flex: 1; text-align: center">
-                <strong>G5</strong><br /><span id="goal5-score-last-week"
+                <strong>Goal5</strong><br /><span id="goal5-score-last-week"
                   >0</span
                 >%
               </div>
@@ -204,7 +205,7 @@
               <strong>Last Week Total:</strong>
               <span id="total-score-last-week">0</span>%
             </div>
-            <div style="text-align: right">
+            <div style="text-align: center">
               <strong>7 Day Loss:</strong> <span id="seven-day-lost">0</span> st
             </div>
           </div>
@@ -216,6 +217,8 @@
                 font-size: 10px;
                 font-weight: bold;
                 margin: 0 0 5px;
+                font-size: 1rem;
+                font-size: 0.8rem;
               "
             >
               This Week
@@ -225,31 +228,31 @@
                 display: flex;
                 justify-content: space-between;
                 text-align: center;
-                font-size: 1.1em;
+                font-size: 1.0em;
               "
             >
               <div style="flex: 1; text-align: center">
-                <strong>G1</strong><br /><span id="goal1-score-this-week"
+                <strong>Goal1</strong><br /><span id="goal1-score-this-week"
                   >0</span
                 >%
               </div>
               <div style="flex: 1; text-align: center">
-                <strong>G2</strong><br /><span id="goal2-score-this-week"
+                <strong>Goal2</strong><br /><span id="goal2-score-this-week"
                   >0</span
                 >%
               </div>
               <div style="flex: 1; text-align: center">
-                <strong>G3</strong><br /><span id="goal3-score-this-week"
+                <strong>Goal3</strong><br /><span id="goal3-score-this-week"
                   >0</span
                 >%
               </div>
               <div style="flex: 1; text-align: center">
-                <strong>G4</strong><br /><span id="goal4-score-this-week"
+                <strong>Goal4</strong><br /><span id="goal4-score-this-week"
                   >0</span
                 >%
               </div>
               <div style="flex: 1; text-align: center">
-                <strong>G5</strong><br /><span id="goal5-score-this-week"
+                <strong>Goal5</strong><br /><span id="goal5-score-this-week"
                   >0</span
                 >%
               </div>
@@ -261,21 +264,21 @@
               display: flex;
               justify-content: space-between;
               align-items: center;
-              font-size: 1.1em;
+              font-size: 1.1rem;
               font-weight: bold;
             "
           >
             <!-- Row 2: Total Lost and 7 Day Loss -->
             <div
-              style="display: flex; justify-content: space-between; width: 100%"
+              style="display: flex; justify-content: space-between; "
             >
               <div style="text-align: center">
                 <strong>This Total Score:</strong>
                 <span id="total-score-this-week">0</span>%
               </div>
-              <div style="text-align: left">
+              <div style="text-align: center">
                 <strong>Total Lost:</strong>
-                <span id="total-score-this-week">8.5</span> st
+                <span id="total_lost">0.0</span> st
               </div>
             </div>
           </div>
