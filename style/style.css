@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
@@ -32,6 +33,7 @@ body {
 .header-stats p {
   margin: 0;
   font-weight: bold;
+  font-size: 90%;
 }
 
 .top-section {
@@ -126,11 +128,21 @@ body {
   outline: 2px solid #000;
 }
 
-.colors { background-color: #ef4444; }
-.colors:nth-child(2) { background-color: #f97316; }
-.colors:nth-child(3) { background-color: #eab308; }
-.colors:nth-child(4) { background-color: #10b981; }
-.colors:nth-child(5) { background-color: #3b82f6; }
+.colors {
+  background-color: #ef4444;
+}
+.colors:nth-child(2) {
+  background-color: #f97316;
+}
+.colors:nth-child(3) {
+  background-color: #eab308;
+}
+.colors:nth-child(4) {
+  background-color: #10b981;
+}
+.colors:nth-child(5) {
+  background-color: #3b82f6;
+}
 
 .footer-inputs {
   margin-top: 0;
@@ -210,13 +222,13 @@ body {
 }
 
 .box:nth-child(3) > div:last-child span {
-    white-space: nowrap; /* Prevent numbers/percentages from wrapping */
+  white-space: nowrap; /* Prevent numbers/percentages from wrapping */
 }
 
 /* Responsive Design */
 @media screen and (max-width: 768px) {
   .top-section {
-    grid-template-columns: 1fr;  /* Stack boxes vertically */
+    grid-template-columns: 1fr; /* Stack boxes vertically */
   }
 
   .goals-and-days-container {
@@ -225,7 +237,7 @@ body {
   }
 
   .days-vertical-list {
-    flex-direction: row;  /* Make days horizontal on mobile */
+    flex-direction: row; /* Make days horizontal on mobile */
     flex-wrap: wrap;
     justify-content: center;
     margin-right: 0;
@@ -233,7 +245,7 @@ body {
   }
 
   .day-btn {
-    min-width: 80px;  /* Ensure buttons are big enough to tap */
+    min-width: 80px; /* Ensure buttons are big enough to tap */
   }
 
   .footer-inputs {
@@ -250,7 +262,7 @@ body {
   }
 
   .submit-btn {
-    width: 100%;  /* Full width button on mobile */
+    width: 100%; /* Full width button on mobile */
   }
 
   /* Adjust box padding for mobile */
@@ -270,7 +282,7 @@ body {
   }
 
   .header-stats input {
-    width: 80px;  /* Smaller input on mobile */
+    width: 80px; /* Smaller input on mobile */
   }
 
   .box:nth-child(3) > div:last-child {
@@ -281,16 +293,16 @@ body {
 
   .box:nth-child(3) > div:last-child > div:first-child,
   .box:nth-child(3) > div:last-child > div:last-child {
-     flex-direction: column; /* Stack items vertically within rows on mobile */
-     align-items: flex-start; /* Align text left on mobile */
-     margin-bottom: 10px; /* Add space between stacked rows/items */
-     width: 100%; /* Ensure full width on mobile */
+    flex-direction: column; /* Stack items vertically within rows on mobile */
+    align-items: flex-start; /* Align text left on mobile */
+    margin-bottom: 10px; /* Add space between stacked rows/items */
+    width: 100%; /* Ensure full width on mobile */
   }
 
   .box:nth-child(3) > div:last-child > div:first-child div,
   .box:nth-child(3) > div:last-child > div:last-child div {
-     width: 100%; /* Ensure full width of inner divs on mobile */
-     text-align: left; /* Align text left on mobile */
+    width: 100%; /* Ensure full width of inner divs on mobile */
+    text-align: left; /* Align text left on mobile */
   }
 
   .goal-percent {
@@ -315,8 +327,8 @@ body {
 
   .box:nth-child(3) > div:last-child > div:first-child div,
   .box:nth-child(3) > div:last-child > div:last-child div {
-     width: 100%;
-     text-align: left;
+    width: 100%;
+    text-align: left;
   }
 
   /* Adjust spacing for very small screens */
@@ -326,7 +338,7 @@ body {
   }
 
   .rating-btns button {
-    padding: 8px 12px;  /* Bigger touch targets */
+    padding: 8px 12px; /* Bigger touch targets */
   }
 
   .footer-inputs {
@@ -346,5 +358,22 @@ body {
 }
 
 .box:first-child .grid-container > div > div {
-   margin-bottom: 0; /* Remove margin from the stacked weight divs */
+  margin-bottom: 0; /* Remove margin from the stacked weight divs */
+}
+
+@media screen and (max-width: 768px) {
+  .footer-inputs {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .footer-inputs textarea {
+    order: 1;
+  }
+
+  .footer-inputs .submit-btn {
+    order: 2;
+    width: 100%;
+    margin-top: 10px;
+  }
 }

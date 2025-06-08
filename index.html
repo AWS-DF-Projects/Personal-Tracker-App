@@ -1,209 +1,394 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Weight Loss Tracker</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style/style.css">
-</head>
-<body>
-  <div class="tracker-container">
-    <div class="header-stats">
-      <h2>My Weight Loss Tracker</h2>
-      <div style="display: flex; align-items: center; margin-bottom: 10px;">
-        <p style="margin-right: 5px;">Enter Weight:</p>
-        <input type="text" placeholder="e.g., 16.00 st" style="padding: 5px; border-radius: 5px; border: 1px solid #ccc; width: 100px;">
-        <p style="margin-left: 20px;">Date: Today's Date</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Personal Tracker</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style/style.css" />
+  </head>
+  <body>
+    <div class="tracker-container">
+      <div class="header-stats">
+        <h2>My Weight Loss Tracker</h2>
+        <div style="display: flex; align-items: center; margin-bottom: 10px">
+          <p style="margin-right: 5px">Enter Weight:</p>
+          <input
+            type="text"
+            placeholder="e.g., 16.00 st"
+            style="
+              padding: 5px;
+              border-radius: 5px;
+              border: 1px solid #ccc;
+              width: 100px;
+            "
+          />
+          <p style="margin-left: 20px">Date: Today's Date</p>
+        </div>
+        <p>
+          Last 5 Overall: <span id="last-5-average_per">00</span>% | Best Week:
+          <span id="high-score-percent">00</span>% – date set
+          <span id="high-score-date">01-01-2020</span>
+        </p>
       </div>
-      <p>Last 5 Overall: 72% | Best Week: 86% – date set 19.3.25</p>
+
+      <div class="top-section">
+        <!-- Box 1: Personal Info -->
+        <div class="box">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 5px;
+            "
+          >
+            <p style="margin: 0"><strong>Profile</strong></p>
+          </div>
+          <!-- Main content area for Name, Age, Weigh Day, Last Week, Current Week, Total Lost -->
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              gap: 5px;
+              margin-bottom: 15px;
+            "
+          >
+            <!-- Left Column -->
+            <div
+              style="display: flex; flex-direction: column; flex: 1; gap: 5px"
+            >
+              <div style="display: flex; flex-direction: column">
+                <p style="margin: 0"><strong>Name:</strong></p>
+                <p style="margin: 0"><span id="user-name">...</span></p>
+              </div>
+              <div style="display: flex; flex-direction: column">
+                <p style="margin: 0"><strong>Age:</strong></p>
+                <p style="margin: 0"><span id="user-age">0</span></p>
+              </div>
+              <div style="display: flex; flex-direction: column">
+                <p style="margin: 0"><strong>Weigh Day:</strong></p>
+                <p style="margin: 0">
+                  <span id="weight-day-info">Monday</span>
+                </p>
+              </div>
+            </div>
+
+            <!-- Right Column -->
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+                gap: 5px;
+                text-align: right;
+              "
+            >
+              <div style="display: flex; flex-direction: column">
+                <p style="margin: 0"><strong>Last Week:</strong></p>
+                <p style="margin: 0">
+                  <span id="last-week-weight">16.13</span> st
+                </p>
+              </div>
+              <div style="display: flex; flex-direction: column">
+                <p style="margin: 0"><strong>Current Week:</strong></p>
+                <p style="margin: 0">
+                  <span id="current-weight">16.12</span> st
+                </p>
+              </div>
+              <div style="display: flex; flex-direction: column">
+                <p style="margin: 0"><strong>Total Lost:</strong></p>
+                <p style="margin: 0"><span id="total-lost">1.57</span> st</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Start Weight - Centered at the bottom -->
+          <div style="text-align: center">
+            <p style="margin: 0">
+              <strong>Start Weight:</strong>
+              <span id="start-weight">17.7</span> st
+            </p>
+          </div>
+        </div>
+
+        <!-- Box 2: Goals -->
+        <div class="box">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 10px;
+            "
+          >
+            <p style="margin: 0"><strong>Goals</strong></p>
+            <button
+              style="margin-left: auto; padding: 5px 10px; font-size: 0.9em"
+            >
+              Edit
+            </button>
+          </div>
+          <ol>
+            <li><span id="goal-1-text">NA</span></li>
+            <li><span id="goal-2-text">NA</span></li>
+            <li><span id="goal-3-text">NA</span></li>
+            <li><span id="goal-4-text">NA</span></li>
+            <li><span id="goal-5-text">NA</span></li>
+          </ol>
+        </div>
+
+        <!-- Box 3: Goal Stats -->
+        <div class="box">
+          <div style="margin-bottom: 10px">
+            <p
+              style="
+                text-align: center;
+                font-size: 10px;
+                font-weight: bold;
+                margin: 0 0 5px;
+              "
+            >
+              Last Week
+            </p>
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                text-align: center;
+                font-size: 1rem;
+                margin-bottom: 10px;
+              "
+            >
+              <!-- Row 1: Overall Score and 7 Day Score -->
+              <div style="flex: 1; text-align: center">
+                <strong>G1</strong><br /><span id="goal1-score-last-week"
+                  >0</span
+                >%
+              </div>
+              <div style="flex: 1; text-align: center">
+                <strong>G2</strong><br /><span id="goal2-score-last-week"
+                  >0</span
+                >%
+              </div>
+              <div style="flex: 1; text-align: center">
+                <strong>G3</strong><br /><span id="goal3-score-last-week"
+                  >0</span
+                >%
+              </div>
+              <div style="flex: 1; text-align: center">
+                <strong>G4</strong><br /><span id="goal4-score-last-week"
+                  >0</span
+                >%
+              </div>
+              <div style="flex: 1; text-align: center">
+                <strong>G5</strong><br /><span id="goal5-score-last-week"
+                  >0</span
+                >%
+              </div>
+            </div>
+          </div>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              font-size: 0.8em;
+              font-weight: bold;
+            "
+          >
+            <div style="text-align: center">
+              <strong>Last Week Total:</strong>
+              <span id="total-score-last-week">0</span>%
+            </div>
+            <div style="text-align: right">
+              <strong>7 Day Loss:</strong> <span id="seven-day-lost">0</span> st
+            </div>
+          </div>
+
+          <div style="margin-bottom: 15px; margin-top: 10px">
+            <p
+              style="
+                text-align: center;
+                font-size: 10px;
+                font-weight: bold;
+                margin: 0 0 5px;
+              "
+            >
+              This Week
+            </p>
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                text-align: center;
+                font-size: 1.1em;
+              "
+            >
+              <div style="flex: 1; text-align: center">
+                <strong>G1</strong><br /><span id="goal1-score-this-week"
+                  >0</span
+                >%
+              </div>
+              <div style="flex: 1; text-align: center">
+                <strong>G2</strong><br /><span id="goal2-score-this-week"
+                  >0</span
+                >%
+              </div>
+              <div style="flex: 1; text-align: center">
+                <strong>G3</strong><br /><span id="goal3-score-this-week"
+                  >0</span
+                >%
+              </div>
+              <div style="flex: 1; text-align: center">
+                <strong>G4</strong><br /><span id="goal4-score-this-week"
+                  >0</span
+                >%
+              </div>
+              <div style="flex: 1; text-align: center">
+                <strong>G5</strong><br /><span id="goal5-score-this-week"
+                  >0</span
+                >%
+              </div>
+            </div>
+          </div>
+
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              font-size: 1.1em;
+              font-weight: bold;
+            "
+          >
+            <!-- Row 2: Total Lost and 7 Day Loss -->
+            <div
+              style="display: flex; justify-content: space-between; width: 100%"
+            >
+              <div style="text-align: center">
+                <strong>This Total Score:</strong>
+                <span id="total-score-this-week">0</span>%
+              </div>
+              <div style="text-align: left">
+                <strong>Total Lost:</strong>
+                <span id="total-score-this-week">8.5</span> st
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="goals-and-days-container"
+        style="display: flex; margin-top: 20px; gap: 20px"
+      >
+        <!-- Days Buttons (Vertical List) -->
+        <div
+          class="days-vertical-list"
+          style="display: flex; flex-direction: column; gap: 10px"
+        >
+          <button class="day-btn completed">Monday</button>
+          <button class="day-btn completed">Tuesday</button>
+          <button class="day-btn selected">Wednesday</button>
+          <button class="day-btn empty">Thursday</button>
+          <button class="day-btn empty">Friday</button>
+          <button class="day-btn empty">Saturday</button>
+          <button class="day-btn empty">Sunday</button>
+        </div>
+
+        <!-- Right Side: Goal Input and Notes -->
+        <div
+          style="display: flex; flex-direction: column; flex-grow: 1; gap: 0px"
+        >
+          <!-- Goal Input -->
+          <div class="goal-inputs-right" style="flex-grow: 1">
+            <div class="results-table">
+              <div style="margin-bottom: 5px">
+                <label>Goal 1: <span id="goal-1-text-input">N/A</span></label>
+                <div class="rating-btns">
+                  <button class="colors">1</button>
+                  <button class="colors">2</button>
+                  <button class="colors">3</button>
+                  <button class="colors">4</button>
+                  <button class="colors">5</button>
+                </div>
+              </div>
+              <div style="margin-bottom: 5px">
+                <label>Goal 2: <span id="goal-2-text-input">N/A</span></label>
+                <div class="rating-btns">
+                  <button class="colors">1</button>
+                  <button class="colors">2</button>
+                  <button class="colors">3</button>
+                  <button class="colors">4</button>
+                  <button class="colors">5</button>
+                </div>
+              </div>
+              <div style="margin-bottom: 5px">
+                <label>Goal 3: <span id="goal-3-text-input">N/A</span></label>
+                <div class="rating-btns">
+                  <button class="colors">1</button>
+                  <button class="colors">2</button>
+                  <button class="colors">3</button>
+                  <button class="colors">4</button>
+                  <button class="colors">5</button>
+                </div>
+              </div>
+              <div style="margin-bottom: 5px">
+                <label>Goal 4: <span id="goal-4-text-input">N/A</span></label>
+                <div class="rating-btns">
+                  <button class="colors">1</button>
+                  <button class="colors">2</button>
+                  <button class="colors">3</button>
+                  <button class="colors">4</button>
+                  <button class="colors">5</button>
+                </div>
+              </div>
+              <div style="margin-bottom: 5px">
+                <label>Goal 5: <span id="goal-5-text-input">N/A</span></label>
+                <div class="rating-btns">
+                  <button class="colors">1</button>
+                  <button class="colors">2</button>
+                  <button class="colors">3</button>
+                  <button class="colors">4</button>
+                  <button class="colors">5</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notes -->
+          <div
+            class="footer-inputs"
+          >
+            <p style="margin: 0; width: 150px">
+              <strong>Day Selected:</strong> Wednesday
+            </p>
+              <textarea
+                placeholder="Add Notes..."
+                style="
+                  flex-grow: 1;
+                  height: 80px;
+                  border-radius: 5px;
+                  padding: 5px;
+                "
+              ></textarea>
+              <button
+                class="submit-btn"
+                style="padding: 8px 15px; font-size: 14px; border-radius: 5px"
+              >
+                Enter Record
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="top-section">
-      <!-- Box 1: Personal Info -->
-      <div class="box">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
-          <p style="margin: 0;"><strong>Profile</strong></p>
-        </div>
-        <!-- Main content area for Name, Age, Weigh Day, Last Week, Current Week, Total Lost -->
-        <div style="display: flex; justify-content: space-between; gap: 5px; margin-bottom: 15px;">
-          <!-- Left Column -->
-          <div style="display: flex; flex-direction: column; flex: 1; gap: 5px;">
-            <div style="display: flex; flex-direction: column;">
-              <p style="margin: 0;"><strong>Name:</strong></p>
-              <p style="margin: 0;"><span id="user-name">...</span></p>
-            </div>
-            <div style="display: flex; flex-direction: column;">
-              <p style="margin: 0;"><strong>Age:</strong></p>
-              <p style="margin: 0;"><span id="user-age">0</span></p>
-            </div>
-            <div style="display: flex; flex-direction: column;">
-              <p style="margin: 0;"><strong>Weigh Day:</strong></p>
-              <p style="margin: 0;"><span id="weight-day-info">Monday</span></p>
-            </div>
-          </div>
-
-          <!-- Right Column -->
-          <div style="display: flex; flex-direction: column; flex: 1; gap: 5px; text-align: right;">
-            <div style="display: flex; flex-direction: column;">
-              <p style="margin: 0;"><strong>Last Week:</strong></p>
-              <p style="margin: 0;"><span id="last-week-weight">16.13</span> st</p>
-            </div>
-            <div style="display: flex; flex-direction: column;">
-              <p style="margin: 0;"><strong>Current Week:</strong></p>
-              <p style="margin: 0;"><span id="current-weight">16.12</span> st</p>
-            </div>
-            <div style="display: flex; flex-direction: column;">
-              <p style="margin: 0;"><strong>Total Lost:</strong></p>
-              <p style="margin: 0;"><span id="total-lost-x">1.57</span> st</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Start Weight - Centered at the bottom -->
-        <div style="text-align: center;">
-          <p style="margin: 0;"><strong>Start Weight:</strong> <span id="start-weight">17.7</span> st</p>
-        </div>
-      </div>
-
-      <!-- Box 2: Goals -->
-      <div class="box">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-          <p style="margin: 0;"><strong>Goals</strong></p>
-          <button style="margin-left: auto; padding: 5px 10px; font-size: 0.9em;">Edit</button>
-        </div>
-        <ol>
-          <li>NA</li>
-          <li>NA</li>
-          <li>NA</li>
-          <li>NA</li>
-          <li>NA</li>
-        </ol>
-      </div>
-
-      <!-- Box 3: Goal Stats -->
-      <div class="box">
-        <div style="margin-bottom: 10px;">
-          <p style="text-align: center; font-size:10px; font-weight: bold; margin: 0 0 5px;">Last Week</p>
-          <div style="display: flex; justify-content: space-between; text-align: center; font-size: 1rem; margin-bottom: 10px;">
-            <div style="flex: 1; text-align: center;"><strong>G1</strong><br><span id="last-week-g1">0%</span></div>
-            <div style="flex: 1; text-align: center;"><strong>G2</strong><br><span id="last-week-g2">0%</span></div>
-            <div style="flex: 1; text-align: center;"><strong>G3</strong><br><span id="last-week-g3">0%</span></div>
-            <div style="flex: 1; text-align: center;"><strong>G4</strong><br><span id="last-week-g4">0%</span></div>
-            <div style="flex: 1; text-align: center;"><strong>G5</strong><br><span id="last-week-g5">0%</span></div>
-          </div>
-        </div>
-        <div style="margin-bottom: 15px;">
-          <p style="text-align: center; font-size:10px; font-weight: bold; margin: 0 0 5px;">This Week</p>
-          <div style="display: flex; justify-content: space-between; text-align: center; font-size: 1.1em;">
-            <div style="flex: 1; text-align: center;"><strong>G1</strong><br><span class="goal-percent" id="this-week-g1">0</span>%</div>
-            <div style="flex: 1; text-align: center;"><strong>G2</strong><br><span class="goal-percent" id="this-week-g2">0</span>%</div>
-            <div style="flex: 1; text-align: center;"><strong>G3</strong><br><span class="goal-percent" id="this-week-g3">0</span>%</div>
-            <div style="flex: 1; text-align: center;"><strong>G4</strong><br><span class="goal-percent" id="this-week-g4">0</span>%</div>
-            <div style="flex: 1; text-align: center;"><strong>G5</strong><br><span class="goal-percent" id="this-week-g5">0</span>%</div>
-          </div>
-        </div>
-        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 1.2em; font-weight: bold;">
-          <!-- Row 1: Overall Score and 7 Day Score -->
-          <div style="display: flex; justify-content: space-between; width: 100%; font-size: 0.9em; margin-bottom: 20px;">
-            <div style="text-align: left;"><strong>Overall Score:</strong> <span id="overall-score">69</span>%</div>
-            <div style="text-align: right;"><strong>7 Day Score:</strong> <span id="seven-day-score">52</span>%</div>
-          </div>
-          <!-- Row 2: Total Lost and 7 Day Loss -->
-          <div style="display: flex; justify-content: space-between; width: 100%;">
-            <div style="text-align: left;"><strong>Total Lost:</strong> <span id="total-loss-stats">1.57</span> st</div>
-            <div style="text-align: right;"><strong>7 Day Loss:</strong> <span id="seven-day-loss">0.1</span> st</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="goals-and-days-container" style="display: flex; margin-top: 20px; gap: 20px;">
-      <!-- Days Buttons (Vertical List) -->
-      <div class="days-vertical-list" style="display: flex; flex-direction: column; gap: 10px;">
-        <button class="day-btn completed">Monday</button>
-        <button class="day-btn completed">Tuesday</button>
-        <button class="day-btn selected">Wednesday</button>
-        <button class="day-btn empty">Thursday</button>
-        <button class="day-btn empty">Friday</button>
-        <button class="day-btn empty">Saturday</button>
-        <button class="day-btn empty">Sunday</button>
-      </div>
-
-      <!-- Right Side: Goal Input and Notes -->
-      <div style="display: flex; flex-direction: column; flex-grow: 1; gap: 0px;">
-
-        <!-- Goal Input -->
-        <div class="goal-inputs-right" style="flex-grow: 1;">
-          <div class="results-table">
-            <div style="margin-bottom: 5px;">
-              <label>Goal 1: <span id="goal-input-desc-1">N/A</span></label>
-              <div class="rating-btns">
-                <button class="colors">1</button>
-                <button class="colors">2</button>
-                <button class="colors">3</button>
-                <button class="colors">4</button>
-                <button class="colors">5</button>
-              </div>
-            </div>
-            <div style="margin-bottom: 5px;">
-              <label>Goal 2: <span id="goal-input-desc-2">N/A</span></label>
-              <div class="rating-btns">
-                <button class="colors">1</button>
-                <button class="colors">2</button>
-                <button class="colors">3</button>
-                <button class="colors">4</button>
-                <button class="colors">5</button>
-              </div>
-            </div>
-            <div style="margin-bottom: 5px;">
-              <label>Goal 3: <span id="goal-input-desc-3">N/A</span></label>
-              <div class="rating-btns">
-                <button class="colors">1</button>
-                <button class="colors">2</button>
-                <button class="colors">3</button>
-                <button class="colors">4</button>
-                <button class="colors">5</button>
-              </div>
-            </div>
-            <div style="margin-bottom: 5px;">
-              <label>Goal 4: <span id="goal-input-desc-4">N/A</span></label>
-              <div class="rating-btns">
-                <button class="colors">1</button>
-                <button class="colors">2</button>
-                <button class="colors">3</button>
-                <button class="colors">4</button>
-                <button class="colors">5</button>
-              </div>
-            </div>
-            <div style="margin-bottom: 5px;">
-              <label>Goal 5: <span id="goal-input-desc-5">N/A</span></label>
-              <div class="rating-btns">
-                <button class="colors">1</button>
-                <button class="colors">2</button>
-                <button class="colors">3</button>
-                <button class="colors">4</button>
-                <button class="colors">5</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Notes -->
-        <div class="footer-inputs" style="display: flex; align-items: flex-start; gap: 10px;">
-          <p style="margin: 0; width: 150px;"><strong>Day Selected:</strong> Wednesday</p>
-          <div style="display: flex; flex-grow: 1; align-items: flex-end; gap: 10px;">
-            <textarea placeholder="Add Notes..." style="flex-grow: 1; height: 80px; border-radius: 5px; padding: 5px;"></textarea>
-            <button class="submit-btn" style="padding: 8px 15px; font-size: 14px; border-radius: 5px;">Enter Record</button>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-  </div>
-
-  <script src="data-logic.js"></script>
-  <script src="ui-interactions.js"></script>
-</body>
+    <script src="data-logic.js"></script>
+    <script src="ui-interactions.js"></script>
+  </body>
 </html>

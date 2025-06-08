@@ -1,157 +1,97 @@
-// Function to update personal info box
-function updatePersonalInfo(data) {
+function webpageUI(data) {
   const profileData = data.find((item) => item.SK === 'PROFILE');
+  const dataUI      = data.find((item) => item.SK === 'DATA_UI');
+  const goalData    = data.find((item) => item.SK === 'GOALS');
+
+  const safeUpdate = (id, value) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.textContent = value;
+    }
+  };
+
   if (profileData) {
-    // Helper function to safely update element
-    const safeUpdate = (id, value) => {
-      const element = document.getElementById(id);
-      if (element) {
-        element.textContent = value;
-      }
-    };
+    safeUpdate('user-name',       profileData.name);                       // user_name
+    safeUpdate('user-age',        profileData.age);                        // user_age
+    safeUpdate('weigh-day-info',  profileData.weight_day);                 // weight_day
+    safeUpdate('start-weight',    profileData.start_weight);               // start_weight  
+  }       
 
-    // Update all personal info elements
-    safeUpdate('user-name', profileData.name);
-    safeUpdate('user-age', profileData.age);
-    safeUpdate('weight-day-info', profileData.weight_day);
-    safeUpdate('start-weight', profileData.start_weight);
-    safeUpdate('current-weight', profileData.current_weight);
-    safeUpdate('last-week-weight', profileData.last_week_weight);
-    safeUpdate('total-lost-x', profileData.total_lost);
+  if (goalData) {
+    safeUpdate('goal-1-text',       goalData.goal_1);                  // goal_1
+    safeUpdate('goal-2-text',       goalData.goal_2);                  // goal_2
+    safeUpdate('goal-3-text',       goalData.goal_3);                  // goal_3
+    safeUpdate('goal-4-text',       goalData.goal_4);                  // goal_4
+    safeUpdate('goal-5-text',       goalData.goal_5);                  // goal_5
+    safeUpdate('goal-1-text-input', goalData.goal_1);                  // goal_1 input
+    safeUpdate('goal-2-text-input', goalData.goal_2);                  // goal_2 input
+    safeUpdate('goal-3-text-input', goalData.goal_3);                  // goal_3 input
+    safeUpdate('goal-4-text-input', goalData.goal_4);                  // goal_4 input
+    safeUpdate('goal-5-text-input', goalData.goal_5);                  // goal_5 input
+  }       
+
+  if (dataUI) {
+    safeUpdate('high-score-percent',   dataUI.high_score['score_%']);     // high_score['score_%']
+    safeUpdate('high-score-date',      dataUI.high_score['score_date']);  // high_score['score_date']
+    safeUpdate('last-5-average_per',   dataUI['last_5_average_%']);       // last_5_average_%
+    safeUpdate('seven-day-lost',       dataUI['7_day_lost']);             // 7_day_lost
+    safeUpdate('total-lost',           dataUI.total_lost);                // total_lost
+    safeUpdate('current-weight',       dataUI.current_week);              // current_week
+    safeUpdate('last-week-weight',     dataUI.last_weeks_weight);         // last_weeks_weight
+
+    // Parse the week numbers
+    const currentWeekObj = typeof dataUI.current_week_numbers === 'string' 
+      ? JSON.parse(dataUI.current_week_numbers) 
+      : dataUI.current_week_numbers;
+    const lastWeekObj = typeof dataUI.last_weeks_numbers === 'string'
+      ? JSON.parse(dataUI.last_weeks_numbers)
+      : dataUI.last_weeks_numbers;
+
+    // Update goal scores
+    safeUpdate('goal1-score-this-week', currentWeekObj.scores.goal_1);
+    safeUpdate('goal2-score-this-week', currentWeekObj.scores.goal_2);
+    safeUpdate('goal3-score-this-week', currentWeekObj.scores.goal_3);
+    safeUpdate('goal4-score-this-week', currentWeekObj.scores.goal_4);
+    safeUpdate('goal5-score-this-week', currentWeekObj.scores.goal_5);
+    safeUpdate('total-score-this-week', currentWeekObj.scores.total_score);
+    
+    safeUpdate('goal1-score-last-week', lastWeekObj.scores.goal_1);
+    safeUpdate('goal2-score-last-week', lastWeekObj.scores.goal_2);
+    safeUpdate('goal3-score-last-week', lastWeekObj.scores.goal_3);
+    safeUpdate('goal4-score-last-week', lastWeekObj.scores.goal_4);
+    safeUpdate('goal5-score-last-week', lastWeekObj.scores.goal_5);
+    safeUpdate('total-score-last-week', lastWeekObj.scores.total_score);
   }
 }
 
-// Function to update goals box
-function updateGoals(data) {
-  console.log('🐛 updateGoals function called');
-  const goalsData = data.find((item) => item.SK === 'GOALS');
-  console.log('🐛 Goals data found:', goalsData);
-  if (goalsData) {
-    const goalsList = document.querySelector('.box ol');
-    console.log('🐛 Goals list element found:', goalsList);
-    if (goalsList) {
-      goalsList.innerHTML = ''; // Clear existing list items
-
-      // ✅ Loop from 1 to 5 in order
-      for (let i = 1; i <= 5; i++) {
-        const key = `goal_${i}`;
-        const goalDescription = goalsData[key];
-        if (goalDescription) {
-          const li = document.createElement('li');
-          li.textContent = goalDescription;
-          goalsList.appendChild(li);
-        }
-      }
-    } else {
-      console.error('❌ Goals list element not found!');
-    }
-  } else {
-    console.error('❌ GOALS data not found in mock data!');
-  }
-}
-
-
-// Function to update goal stats box
-function updateGoalStats(data) {
-  const progressData = data.find((item) => item.SK === 'PROGRESS');
-  const profileData = data.find((item) => item.SK === 'PROFILE');
-
-  if (progressData && profileData) {
-    // Update This Week goals
-    const goalElements = document.querySelectorAll('.goal-percent');
-    for (let i = 1; i <= 5; i++) {
-      const goalKey = `goal_${i}`;
-      if (progressData[goalKey] && goalElements[i - 1]) {
-        goalElements[i - 1].textContent = progressData[goalKey].percent;
-      }
-    }
-
-    // Update overall stats
-    // Helper function to safely update element
-    const safeUpdate = (id, value) => {
-      const element = document.getElementById(id);
-      if (element) {
-        element.textContent = value;
-      }
-    };
-
-    // Update the new elements in the two-row structure
-    safeUpdate('overall-score', '69'); // Overall score is not in mock data, keeping hardcoded for now
-    safeUpdate('seven-day-score', progressData.last_5_percent);
-    safeUpdate('total-loss-stats', profileData.total_lost);
-    safeUpdate('seven-day-loss', profileData['7_day_loss']);
-  }
-}
-
-// Function to update goal descriptions in Goal Stats and Goal Input sections
-function updateGoalDescriptions(goalsData) {
-  if (goalsData) {
-    // Helper function to safely update element
-    const safeUpdate = (id, value) => {
-      const element = document.getElementById(id);
-      if (element) {
-        element.textContent = value;
-      }
-    };
-
-    for (let i = 1; i <= 5; i++) {
-      const goalKey = `goal_${i}`;
-      const goalDescription = goalsData[goalKey];
-
-      if (goalDescription) {
-        // Update in Goal Stats - Last Week
-        safeUpdate(`goal-desc-last-week-${i}`, goalDescription);
-        // Update in Goal Stats - This Week
-        safeUpdate(`goal-desc-this-week-${i}`, goalDescription);
-        // Update in Goal Input section
-        safeUpdate(`goal-input-desc-${i}`, goalDescription);
-      }
-    }
-  }
-}
-
-// Main function to update all data
+// Fetch and update UI on page load
 function updateAllData() {
   fetch('mock/progress-data.json')
     .then((res) => res.json())
     .then((data) => {
-      console.log('📦 Mock JSON loaded:', data);
+      let parsed;
+      // Try to handle all data shapes
+      if (Array.isArray(data)) {
+        parsed = data;
+      } else if (typeof data.body === 'string') {
+        parsed = JSON.parse(data.body);
+      } else if (Array.isArray(data.body)) {
+        parsed = data.body;
+      } else {
+        throw new Error('Unrecognized JSON shape!');
+      }
 
-      const parsed = JSON.parse(data.body);
-      console.log('📦 Parsed body array:', parsed);
+      const validItems = [
+        parsed.find((item) => item.SK === 'PROFILE'),
+        parsed.find((item) => item.SK === 'GOALS'),
+        parsed.find((item) => item.SK === 'DATA_UI')
+      ].filter(Boolean);
 
-      console.log(Array.isArray(parsed)); // should be true
-
-      parsed.forEach((item, index) => {
-        console.log(`Item ${index} SK:`, item.SK);
-      });
-      
-
-      const personalInfoData = parsed.find((item) => item.SK === 'PROFILE');
-      const goalsData        = parsed.find((item) => item.SK === 'GOALS');
-      const progressData     = parsed.find((item) => item.SK === 'PROGRESS');
-
-      if (personalInfoData) updatePersonalInfo([personalInfoData]);
-      if (goalsData) updateGoals([goalsData]);
-      if (progressData) updateGoalStats([progressData, personalInfoData]);
-
-      // Call the new function to update goal descriptions
-      updateGoalDescriptions(goalsData);
+      webpageUI(validItems);
     })
     .catch((err) => {
       console.error('❌ API Call Failed:', err);
     });
 }
 
-// Initialize data when page loads
 document.addEventListener('DOMContentLoaded', updateAllData);
-
-// Add your safeUpdate helper function here if not already present
-function safeUpdate(elementId, textContent) {
-  const element = document.getElementById(elementId);
-  if (element) {
-    element.textContent = textContent;
-  } else {
-    console.warn(`Element with ID "${elementId}" not found.`);
-  }
-}
