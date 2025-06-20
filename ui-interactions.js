@@ -38,7 +38,67 @@ document.addEventListener('DOMContentLoaded', () => {
   // 🎯 4. Handle Enter Record button
   const submitButton = document.querySelector('.submit-btn');
   submitButton.addEventListener('click', () => {
-    // TODO: Implement record submission
-    console.log('Record submitted');
+    const selectedDayBtn = document.querySelector('.day-btn.selected');
+    const selectedDay = selectedDayBtn ? selectedDayBtn.textContent.trim() : null;
+
+    if (!selectedDay) {
+      alert("Pick a day first!");
+      return;
+    }
+
+    // Collect goal ratings
+    const goalData = {};
+    const ratingRows = document.querySelectorAll('.results-table > div');
+
+    ratingRows.forEach((row, index) => {
+      const selectedRating = row.querySelector('.rating-btns button.selected');
+      if (selectedRating) {
+        goalData[`goal_${index + 1}`] = parseInt(selectedRating.textContent.trim());
+      }
+    });
+
+    // Grab notes
+    const notesBox = document.querySelector('.footer-inputs textarea');
+    const notes = notesBox ? notesBox.value.trim() : "";
+
+    const jsonOutput = {
+      day: selectedDay,
+      notes,
+      goals: goalData
+    };
+
+    console.log("✅ JSON Record:", JSON.stringify(jsonOutput, null, 2));
+
+    // 🧠 THE MISSING PIECE: Send to AWS API Gateway
+    fetch('https://xrljpz0uf6.execute-api.us-east-1.amazonaws.com/PROD', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(jsonOutput)
+    })
+    .then(data => {
+      console.log('🎉 Data saved successfully to AWS:', data);
+      alert('✅ Successfully saved to AWS!');
+
+      // Optional: show a save summary
+      const summary = document.querySelector('.save-summary');
+      if (summary) {
+        const goalsHtml = Object.entries(jsonOutput.goals)
+          .map(([goal, rating]) => `<p><strong>${goal.replace('_', ' ')}:</strong> ${rating}</p>`)
+          .join('');
+
+        summary.innerHTML = `
+          <p><strong>Saved for Day:</strong> ${jsonOutput.day}</p>
+          <p><strong>Notes:</strong> ${jsonOutput.notes || 'None'}</p>
+          ${goalsHtml}
+        `;
+      }
+    })
+    .catch(error => {
+      console.error('❌ Failed to send data to AWS:', error);
+      alert('⚠️ Something went wrong while saving.');
+    });
+
   });
-}); 
+});
